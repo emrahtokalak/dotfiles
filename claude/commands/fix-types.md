@@ -1,6 +1,6 @@
 # Type Check and Fix with Pyrefly
 
-Run `uv run pyrefly check src/` to check for type errors and warnings in the codebase.
+Run `uv run pyrefly check .` to check for type errors and warnings in the codebase.
 
 Your task is to:
 1. Execute the pyrefly type checking command

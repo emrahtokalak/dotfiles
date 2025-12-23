@@ -18,7 +18,7 @@ Bu command, PEP 8, Google Python Style Guide ve modern Python best practice'leri
 Önce kodu formatla - bu en temel adım:
 
 ```bash
-uv run ruff format src/
+uv run ruff format .
 ```
 
 Bu adım şunları yapar:
@@ -33,7 +33,7 @@ Bu adım şunları yapar:
 Tüm lint kurallarını kontrol et ve otomatik düzelt:
 
 ```bash
-uv run ruff check src/ --fix
+uv run ruff check . --fix
 ```
 
 Bu adım şunları düzeltir:
@@ -52,7 +52,7 @@ Bu adım şunları düzeltir:
 OpenShift'te relative import'lar sorun çıkarır:
 
 ```bash
-grep -rn "^from \." src/ && echo "❌ Relative import bulundu - düzeltilmeli!" || echo "✅ Tüm import'lar absolute"
+grep -rn "^from \." . --include="*.py" && echo "❌ Relative import bulundu - düzeltilmeli!" || echo "✅ Tüm import'lar absolute"
 ```
 
 ### 4. Son Kontrol
@@ -60,13 +60,13 @@ grep -rn "^from \." src/ && echo "❌ Relative import bulundu - düzeltilmeli!" 
 Kalan hataları göster (manuel düzeltme gerektirenler):
 
 ```bash
-uv run ruff check src/
+uv run ruff check .
 ```
 
 ## Tek Satırda Çalıştırma
 
 ```bash
-uv run ruff format src/ && uv run ruff check src/ --fix && uv run ruff check src/
+uv run ruff format . && uv run ruff check . --fix && uv run ruff check .
 ```
 
 ## Aktif Kurallar (pyproject.toml)
