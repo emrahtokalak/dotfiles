@@ -1,13 +1,3 @@
-# Remove AI code slop
+# Generate Git title and description
 
-Check the diff against main, and remove all AI generated slop introduced in this branch.
-
-This includes:
-- Extra comments that a human wouldn't add or is inconsistent with the rest of the file
-- Extra defensive checks that are abnormal for that area of the codebase (especially if called by trusted / validated codepaths)
-- Casts to any to get around type issues
-- Any other style that is inconsistent with the file
-- Simplify long variable names with smaller ones, used in a proper, well
-  maintained Go project
-
-Report at the end with only a 1-3 sentence summary of what you changed
+Write a short title and description so I can use it for my Git Commit. Make it short, and on point. Use at most three paragraphs, if you can use only a single paragraph (depending on the amount of changes). Do not include any tests changes. Do not commit it, display it and use pbcopy to copy to my clipboard because I'm using macOS. While writing the title and description, act like a principal software engineers that value simplicity over complexity, write easy to understand texts. Do not use complex words.
