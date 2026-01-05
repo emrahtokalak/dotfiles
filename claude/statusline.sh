@@ -39,7 +39,7 @@ for ((i=0; i<empty; i++)); do bar+="░"; done
 
 # Extract cost information
 session_cost=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
-[ "$session_cost" != "empty" ] && session_cost=$(printf "%.4f" "$session_cost") || session_cost=""
+[ -n "$session_cost" ] && session_cost=$(echo "$session_cost" | LC_NUMERIC=C awk '{printf "%.4f", $1}') || session_cost=""
 
 # Get directory name (basename)
 dir_name=$(basename "$current_dir")
@@ -91,10 +91,10 @@ if [ -n "$session_cost" ] && [ "$session_cost" != "null" ] && [ "$session_cost" 
     cost_info=" ${GRAY}[\$$session_cost]${NC}"
 fi
 
-# Count TODO/FIXME in codebase (limit search for performance)
+# Count TODO/FIXME in codebase (only in git repos, with timeout for performance)
 todo_info=""
-if [ -d "$current_dir" ]; then
-    todo_count=$(grep -rI --include="*.{js,ts,tsx,jsx,py,sh,go,rs,java,c,cpp,h,rb,php,swift,kt}" -E "(TODO|FIXME)" "$current_dir" 2>/dev/null | wc -l | xargs)
+if [ -d "$current_dir/.git" ]; then
+    todo_count=$(timeout 1 grep -rI --include="*.js" --include="*.ts" --include="*.tsx" --include="*.jsx" --include="*.py" --include="*.sh" --include="*.go" --include="*.rs" --include="*.java" --include="*.c" --include="*.cpp" --include="*.h" --include="*.rb" --include="*.php" --include="*.swift" --include="*.kt" -E "(TODO|FIXME)" "$current_dir" 2>/dev/null | head -100 | wc -l | xargs)
     if [ "$todo_count" -gt 0 ]; then
         if [ "$todo_count" -gt 10 ]; then
             TODO_COLOR="${RED}"
